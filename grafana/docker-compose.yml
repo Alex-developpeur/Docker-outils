@@ -19,6 +19,7 @@ services:
       interval: 30s
       timeout: 1s
       retries: 5
+
         
   # Grafana Server
   #
@@ -32,3 +33,6 @@ services:
       - GF_DATABASE_NAME=grafana
       - GF_DATABASE_USER=admin
       - GF_DATABASE_PASSWORD=password
+    deploy: 
+      labels:
+         - traefik.http.router.grafana.rule=Host("localhost")
