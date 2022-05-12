@@ -1,10 +1,10 @@
 # Outils
 
-Objectif : Installer et configurer une suite d'outil exclusivement en conteneur
-Travail d'équipe : Oui
+Objectif : Installer et configurer une suite d'outil exclusivement en conteneur  
+Travail d'équipe : Oui  
 Besoin :
-Déployer un ou plusieurs serveurs accessibles par tous les membres du groupe (Prérequis : Debian10)
-Installer et Configurer un proxy - Tra
+- Déployer un ou plusieurs serveurs accessibles par tous les membres du groupe (Prérequis : Debian10)
+- Installer et Configurer un proxy - Tra
 
 ## Getting started
 
