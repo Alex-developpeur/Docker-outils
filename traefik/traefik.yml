@@ -3,13 +3,13 @@ api:
   dashboard: true
 
 entryPoints:
-  http:
+  web:
     address: :80
     http:
       redirections:
         entryPoint:
-          to: https
-  https:
+          to: websecure
+  websecure:
     address: :443
     http:
       tls:
@@ -18,10 +18,10 @@ entryPoints:
 certificatesResolvers:
   myresolver:
     acme:
-      email: "test@example.com"
+      email: "admin@traefik-gr3.cefim-formation.org"
       storage: "acme.json"
       httpChallenge:
-        entryPoint: http
+        entryPoint: web
 
 providers:
   docker:
@@ -31,7 +31,7 @@ providers:
 log:
   filePath: "/log/traefik.log"
   format: json
-  level: DEBUG
+  level: ERROR
 
 accessLog:
   filePath: "/log/access.log"
@@ -47,5 +47,5 @@ metrics:
     addEntryPointsLabels: true
     addRoutersLabels: true
     addServicesLabels: true
-    entryPoint: https
+    entryPoint: websecure
     
