@@ -16,6 +16,7 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
+      - ./mdp/passwd:/etc/traefik/passwd
       - /etc/localtime:/etc/localtime:ro
       - ./log:/log
       - ./data/acme.json:/acme.json
@@ -24,6 +25,8 @@ services:
       - "traefik.http.routers.traefik.rule=Host(`traefik-gr3.cefim-formation.org`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/passwd"
 
 networks:
   lan-traefik:
