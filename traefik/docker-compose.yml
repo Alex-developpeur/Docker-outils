@@ -33,11 +33,9 @@ services:
     container_name: "simple-service"
     labels:
       - "traefik.enable=true"
-<<<<<<< HEAD
 #      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
       - "traefik.http.routers.whoami.rule=Host(`whoami.ec2-13-38-30-207.eu-west-3.compute.amazonaws.com`)"
       - "traefik.http.routers.whoami.entrypoints=web"
-=======
       - "traefik.http.routers.whoami.rule=Host(`whoami-gr3.cefim-formation.org`)"
 #      - "traefik.http.routers.whoami.rule=Host(`traefik-gr3.cefim-formation.org`)"
       - "traefik.http.routers.whoami.entrypoints=http"
@@ -46,4 +44,3 @@ services:
 networks:
   lan-traefik:
     name: lan-traefik
->>>>>>> 3-mise-en-place-de-traefik
