@@ -40,8 +40,8 @@ services:
     deploy: 
       labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.traefik.rule=Host(`traefik-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.traefik.entrypoints=https"
+      - "traefik.http.routers.grafana.rule=Host(`grafana-gr3.cefim-formation.org`)"
+      - "traefik.http.routers.grafana.entrypoints=https"
       - "traefik.http.services.grafana.loadbalancer.server.port=3000"
 
 networks:
