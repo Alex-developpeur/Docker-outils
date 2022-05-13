@@ -10,9 +10,7 @@ services:
       - no-new-privileges:true
     ports:
       - "80:80"
-      - "8080:8080"
-# désactiber port 8080
-#      - "443:443"
+      - "443:443"
     networks:
       - lan-traefik
     volumes:
@@ -20,26 +18,12 @@ services:
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
       - /etc/localtime:/etc/localtime:ro
       - ./log:/log
-#     - ./data/acme.json:/acme.json
-# créer le répertoir data et le fichier acme.json et lui donner les droit chmod 600
+      - ./data/acme.json:/acme.json
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.rule=Host(`traefik-gr3.cefim-formation.org`)"
       - "traefik.http.routers.traefik.entrypoints=https"
       - "traefik.http.routers.traefik.service=api@internal"
-
-  whoami:
-    image: "traefik/whoami"
-    container_name: "simple-service"
-    labels:
-      - "traefik.enable=true"
-#      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.ec2-13-38-30-207.eu-west-3.compute.amazonaws.com`)"
-      - "traefik.http.routers.whoami.entrypoints=web"
-      - "traefik.http.routers.whoami.rule=Host(`whoami-gr3.cefim-formation.org`)"
-#      - "traefik.http.routers.whoami.rule=Host(`traefik-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.whoami.entrypoints=http"
-      - "traefik.http.services.whoami.loadbalancer.server.port=80"
 
 networks:
   lan-traefik:
