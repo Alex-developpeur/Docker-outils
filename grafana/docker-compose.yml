@@ -8,6 +8,8 @@ services:
   #
   grafana-storage:
     image: postgres:10-alpine
+    networks:
+      - lan-traefik
     volumes:
       - grafana-pgdata:/var/lib/postgresql/data
     environment:
@@ -25,8 +27,10 @@ services:
   #
   grafana:
     image: grafana/grafana
-    ports:
-      - "3000:3000"
+#    ports:
+#      - "3000:3000"
+    networks:
+      - lan-traefik
     environment:
       - GF_DATABASE_TYPE=postgres
       - GF_DATABASE_HOST=grafana-storage
@@ -35,4 +39,11 @@ services:
       - GF_DATABASE_PASSWORD=password
     deploy: 
       labels:
-         - traefik.http.router.grafana.rule=Host("localhost")
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik-gr3.cefim-formation.org`)"
+      - "traefik.http.routers.traefik.entrypoints=https"
+      - "traefik.http.services.grafana.loadbalancer.server.port=3000"
+
+networks:
+  lan-traefik:
+    name: lan-traefik
