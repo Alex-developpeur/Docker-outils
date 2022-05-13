@@ -3,8 +3,6 @@ version: "3.7"
 services:
   sonarqube:
     image: sonarqube
-    ports:
-      - "9000:9000"
     networks:
       - lan-traefik
     volumes:
@@ -18,6 +16,12 @@ services:
       - sonar.jdbc.username=sonar
       - sonar.jdbc.password=sonar
       - sonar.jdbc.url=jdbc:postgresql://postgres/sonarqube
+    deploy: 
+      labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarqube.rule=Host(`sonarqube-gr3.cefim-formation.org`)"
+      - "traefik.http.routers.sonarqube.entrypoints=https"
+      - "traefik.http.services.sonarqube.loadbalancer.server.port=3000"
 
   postgres:
     image: postgres
