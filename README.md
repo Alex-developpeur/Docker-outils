@@ -18,14 +18,14 @@ Rendu :
 
 # URL
 
-[traefik](traefik-gr3.cefim-formation.org)
+[traefik](https://traefik-gr3.cefim-formation.org)
 
-[harbor](harbor-gr3.cefim-formation.org)
+[harbor](https://harbor-gr3.cefim-formation.org)
 
-[sonarqube](sonarqube-gr3.cefim-formation.org)
+[sonarqube](https://sonarqube-gr3.cefim-formation.org)
 
-[grafana](grafana-gr3.cefim-formation.org)
+[grafana](https://grafana-gr3.cefim-formation.org)
 
-[prometheus](prometheus-gr3.cefim-formation.org)
+[prometheus](https://prometheus-gr3.cefim-formation.org)
 
-[loki](loki-gr3.cefim-formation.org)
+[loki](https://loki-gr3.cefim-formation.org)
