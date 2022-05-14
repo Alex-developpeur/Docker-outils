@@ -13,10 +13,10 @@ entryPoints:
     address: :443
     http:
       tls:
-        certResolver: myresolver
+        certResolver: encrypt-resolver
 
 certificatesResolvers:
-  myresolver:
+  encrypt-resolver:
     acme:
       email: "admin@traefik-gr3.cefim-formation.org"
       storage: "acme.json"
@@ -26,7 +26,7 @@ certificatesResolvers:
 providers:
   docker:
     exposedByDefault: false
-    endpoint: "unix:///var/run/docker.sock"
+    watch: true
 
 log:
   filePath: "/log/traefik.log"
