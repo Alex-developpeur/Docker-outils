@@ -3,30 +3,30 @@ api:
   dashboard: true
 
 entryPoints:
-  http:
+  web:
     address: :80
     http:
       redirections:
         entryPoint:
-          to: https
-  https:
+          to: websecure
+  websecure:
     address: :443
     http:
       tls:
-        certResolver: myresolver
+        certResolver: encrypt-resolver
 
 certificatesResolvers:
-  myresolver:
+  encrypt-resolver:
     acme:
       email: "test@example.com"
       storage: "acme.json"
       httpChallenge:
-        entryPoint: http
+        entryPoint: web
 
 providers:
   docker:
     exposedByDefault: false
-    endpoint: "unix:///var/run/docker.sock"
+    watch: true
 
 log:
   filePath: "/log/traefik.log"
@@ -47,5 +47,5 @@ metrics:
     addEntryPointsLabels: true
     addRoutersLabels: true
     addServicesLabels: true
-    entryPoint: https
+    entryPoint: websecure
     
