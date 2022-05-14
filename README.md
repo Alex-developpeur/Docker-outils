@@ -16,3 +16,16 @@ Rendu :
 - Versionner votre code dans un projet GitLab nommé "Outils"
 - Préparer une présentation de votre projet (organisation, architecture, difficulté, résultat, point de vérification de fonctionnement)
 
+# URL
+
+[traefik](traefik-gr3.cefim-formation.org)
+
+[harbor](harbor-gr3.cefim-formation.org)
+
+[sonarqube](sonarqube-gr3.cefim-formation.org)
+
+[grafana](grafana-gr3.cefim-formation.org)
+
+[prometheus](prometheus-gr3.cefim-formation.org)
+
+[loki](loki-gr3.cefim-formation.org)
