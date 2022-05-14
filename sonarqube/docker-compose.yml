@@ -4,7 +4,7 @@ services:
   sonarqube:
     image: sonarqube
     networks:
-      - lan-traefik
+      - proxy
     volumes:
       # - "conf:/opt/sonarqube/conf"
       - "extensions:/opt/sonarqube/extensions"
@@ -16,19 +16,19 @@ services:
       - sonar.jdbc.username=sonar
       - sonar.jdbc.password=sonar
       - sonar.jdbc.url=jdbc:postgresql://postgres/sonarqube
-    deploy: 
-      labels:
+    labels:
       - "traefik.enable=true"
+      - "traefik.http.routers.sonarqube.tls=true"
+      - "traefik.http.routers.sonarqube.tls.certresolver=encrypt-resolver"
       - "traefik.http.routers.sonarqube.rule=Host(`sonarqube-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.sonarqube.entrypoints=https"
-      - "traefik.http.services.sonarqube.loadbalancer.server.port=3000"
+      - "traefik.http.routers.sonarqube.entrypoints=websecure"
 
   postgres:
     image: postgres
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
-      - lan-traefik      
+      - proxy
     environment:
       POSTGRES_USER: sonar
       POSTGRES_PASSWORD: sonar
@@ -42,5 +42,5 @@ volumes:
   pg_data:
 
 networks:
-  lan-traefik:
-    name: lan-traefik
+  proxy:
+    name: traefik
