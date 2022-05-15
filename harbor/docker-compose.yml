@@ -1,10 +1,11 @@
 ---
 version: '3.9'
 
-
 services:
   registry:
     image: docker.io/bitnami/harbor-registry:2
+    networks:
+      - proxy
     environment:
       - REGISTRY_HTTP_SECRET=CHANGEME
     volumes:
@@ -12,6 +13,8 @@ services:
       - ./config/registry/:/etc/registry/:ro
   registryctl:
     image: docker.io/bitnami/harbor-registryctl:2
+    networks:
+      - proxy
     environment:
       - CORE_SECRET=CHANGEME
       - JOBSERVICE_SECRET=CHANGEME
@@ -23,6 +26,8 @@ services:
   postgresql:
     image: docker.io/bitnami/postgresql:13
     container_name: harbor-db
+    networks:
+      - proxy
     environment:
       - POSTGRESQL_PASSWORD=bitnami
       - POSTGRESQL_DATABASE=registry
@@ -31,6 +36,8 @@ services:
   core:
     image: docker.io/bitnami/harbor-core:2
     container_name: harbor-core
+    networks:
+      - proxy
     depends_on:
       - registry
       - chartmuseum
@@ -74,11 +81,15 @@ services:
   portal:
     image: docker.io/bitnami/harbor-portal:2
     container_name: harbor-portal
+    networks:
+      - proxy
     depends_on:
       - core
   jobservice:
     image: docker.io/bitnami/harbor-jobservice:2
     container_name: harbor-jobservice
+    networks:
+      - proxy
     depends_on:
       - redis
       - core
@@ -94,6 +105,8 @@ services:
       - ./config/jobservice/config.yml:/etc/jobservice/config.yml:ro
   redis:
     image: docker.io/bitnami/redis:latest
+    networks:
+      - proxy
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
@@ -102,16 +115,27 @@ services:
     container_name: nginx
     volumes:
       - ./config/proxy/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro
-    ports:
-      - '80:8080'
+#    ports:
+#      - '80:8080'
+    networks:
+      - proxy
     depends_on:
       - postgresql
       - registry
       - core
       - portal
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.harbor-nginx.tls=true"
+      - "traefik.http.routers.harbor-nginx.tls.certresolver=encrypt-resolver"
+      - "traefik.http.routers.harbor-nginx.rule=Host(`harbor-gr3.cefim-formation.org`)"
+      - "traefik.http.routers.harbor-nginx.entrypoints=websecure"
+
   chartmuseum:
     container_name: chartmuseum
     image: docker.io/bitnami/chartmuseum:0
+    networks:
+      - proxy
     environment:
       - CACHE=redis
       - CACHE_REDIS_ADDR=redis:6379
@@ -135,3 +159,7 @@ volumes:
     driver: local
   chartmuseum_data:
     driver: local
+
+networks:
+  proxy:
+    name: traefik

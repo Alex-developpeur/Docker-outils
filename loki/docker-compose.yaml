@@ -1,6 +1,10 @@
 ---
 <<<<<<< HEAD
+<<<<<<< HEAD
 version: "3"
+=======
+version: "3.9"
+>>>>>>> 880fff9c1716a27c2e3544bd18d0a69641b0e91b
 
 networks:
   loki:
