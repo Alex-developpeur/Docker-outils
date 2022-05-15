@@ -4,18 +4,24 @@ version: '3.9'
 services:
   grafana:
     image: grafana/grafana
-    ports:
-      - 3000:3000
+#    ports:
+#      - 3000:3000
     networks:
-      - default
+      - proxy
     restart: unless-stopped
     volumes:
       - ./datasources:/etc/grafana/datasources
       - grafana-data:/var/lib/grafana
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.grafana.tls=true"
+      - "traefik.http.routers.grafana.tls.certresolver=encrypt-resolver"
+      - "traefik.http.routers.grafana.rule=Host(`grafana-gr3.cefim-formation.org`)"
+      - "traefik.http.routers.grafana.entrypoints=websecure"
 
 volumes:
   grafana-data:
 
 networks: 
-  default: 
-    name: lan-grafana
+  proxy:
+    name: traefik
