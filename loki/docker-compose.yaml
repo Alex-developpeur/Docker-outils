@@ -1,23 +1,11 @@
 ---
-<<<<<<< HEAD
-<<<<<<< HEAD
-version: "3"
-=======
-version: "3.9"
->>>>>>> 880fff9c1716a27c2e3544bd18d0a69641b0e91b
-
-networks:
-  loki:
-
-=======
 version: "3.9"
 
 networks:
   loki:
   default: 
-    name: external-example
+    name: lan-grafana
     
->>>>>>> 7-mise-en-place-prometheus
 services:
   read:
     image: grafana/loki
@@ -81,40 +69,6 @@ services:
     networks:
       - loki
 
-<<<<<<< HEAD
-  grafana:
-    image: grafana/grafana
-    environment:
-      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-    depends_on:
-      - gateway
-    entrypoint:
-      - sh
-      - -euc
-      - |
-        mkdir -p /etc/grafana/provisioning/datasources
-        cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-        apiVersion: 1
-        datasources:
-          - name: Loki
-            type: loki
-            access: proxy
-            url: http://gateway:3100
-            jsonData:
-              httpHeaderName1: "X-Scope-OrgID"
-            secureJsonData:
-              httpHeaderValue1: "tenant1"
-        EOF
-        /run.sh
-    ports:
-      - "3000:3000"
-    networks:
-      - loki
-
-=======
->>>>>>> 7-mise-en-place-prometheus
   gateway:
     image: nginx
     depends_on:
@@ -178,10 +132,7 @@ services:
       - "3100:3100"
     networks:
       - loki
-<<<<<<< HEAD
-=======
       - default
->>>>>>> 7-mise-en-place-prometheus
 
   flog:
     image: mingrammer/flog
