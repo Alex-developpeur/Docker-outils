@@ -18,6 +18,7 @@ services:
       - "traefik.http.routers.prometheus.tls.certresolver=encrypt-resolver"
       - "traefik.http.routers.prometheus.rule=Host(`prometheus-gr3.cefim-formation.org`)"
       - "traefik.http.routers.prometheus.entrypoints=websecure"
+      - "traefik.http.routers.prometheus.middlewares=auth"
 
   alertmanager:
     image: prom/alertmanager

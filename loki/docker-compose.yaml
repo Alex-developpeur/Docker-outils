@@ -19,6 +19,7 @@ services:
       - "traefik.http.routers.gateway.tls.certresolver=encrypt-resolver"
       - "traefik.http.routers.gateway.rule=Host(`loki-gr3.cefim-formation.org`)"
       - "traefik.http.routers.gateway.entrypoints=websecure"
+      - "traefik.http.routers.gateway.middlewares=auth"
 
   promtail:
     image: grafana/promtail:2.5.0
