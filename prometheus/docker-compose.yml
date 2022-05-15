@@ -1,35 +1,17 @@
-version: '3'
+---
+version: '3.9'
 
 services:
   prometheus:
     image: prom/prometheus
+    ports:
+      - 9000:9090
     networks:
-      - proxy
+      - default
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.tls=true"
-      - "traefik.http.routers.prometheus.tls.certresolver=encrypt-resolver"
-      - "traefik.http.routers.prometheus.rule=Host(`prometheus-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.prometheus.entrypoints=websecure"
-
-  grafana:
-    image: grafana/grafana
-    networks:
-      - proxy
-    restart: unless-stopped
-    volumes:
-      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-      - grafana-data:/var/lib/grafana
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.grafana.tls=true"
-      - "traefik.http.routers.grafana.tls.certresolver=encrypt-resolver"
-      - "traefik.http.routers.grafana.rule=Host(`grafana-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.grafana.entrypoints=websecure"
 
   alertmanager:
     image: prom/alertmanager
@@ -52,11 +34,8 @@ services:
 
 volumes:
   prometheus-data:
-
-  grafana-data:
-
   alertmanager-data:
 
-networks:
-  proxy:
-    name: traefik
+networks: 
+  default: 
+    name: external-example
