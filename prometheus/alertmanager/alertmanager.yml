@@ -18,7 +18,7 @@ receivers:
   - name: 'mail'
     email_configs:
       - smarthost: 'yourmailhost.com:465'
-        auth_username: 'mail@yourmailhost.com'
+        auth_username: 'yourmail@yourmailhost.com'
         auth_password: "your mail password"
         from: 'yourmail@yourmailhost.com'
         to: 'someonesmail@yourmailhost.com'
