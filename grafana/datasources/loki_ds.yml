@@ -1,0 +1,9 @@
+datasources:
+  - name: Loki
+    access: proxy
+    type: loki
+    url: https://loki-gr3.cefim-formation.org
+    jsonData:
+      httpHeaderName1: "X-Scope-OrgID"
+    secureJsonData:
+      httpHeaderValue1: "tenant1"

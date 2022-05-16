@@ -4,20 +4,29 @@ version: '3.9'
 services:
   prometheus:
     image: prom/prometheus
-    ports:
-      - 9000:9090
+#    ports:
+#      - 9000:9090
     networks:
-      - default
+      - proxy
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.prometheus.tls=true"
+      - "traefik.http.routers.prometheus.tls.certresolver=encrypt-resolver"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus-gr3.cefim-formation.org`)"
+      - "traefik.http.routers.prometheus.entrypoints=websecure"
+      - "traefik.http.routers.prometheus.middlewares=auth"
 
   alertmanager:
     image: prom/alertmanager
     restart: unless-stopped
     ports:
       - "9093:9093"
+    networks:
+      - default
     volumes:
       - "./alertmanager:/config"
       - alertmanager-data:/data
@@ -30,12 +39,13 @@ services:
       PROM2TEAMS_CONNECTOR: "https://og2gether.webhook.office.com/webhookb2/b5370781-89c2-45ba-be14-453e29dfb0a9@8794e153-c3bd-4479-8bea-61aeaf167d5a/IncomingWebhook/57e69e8f10dd49ce8dae3b816159e228/4eb361c9-e566-4b66-ab30-bed630f495a5"
     ports:
       - 8089:8089
-
+    networks:
+      - default
 
 volumes:
   prometheus-data:
   alertmanager-data:
 
 networks: 
-  default: 
-    name: lan-grafana
+  proxy:
+    name: traefik
