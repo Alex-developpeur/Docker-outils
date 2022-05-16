@@ -60,9 +60,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 - [Documentation  employée](https://doc.traefik.io/traefik/providers/docker/)
 ### Présentation :
 Traefik est un reverse proxy et un répartiteur de charge ppen-source qui facilite le déploiement de micro services.  
-
 Il a été spécialement développé pour fonctionner avec Docker.  
-
 Il Génère et renouvelle des certificats Let’s Encrypt et a une interface web.
 
 ### Installation :
@@ -85,7 +83,6 @@ docker compose up -d
 
 ### Présentation :
 Harbor est un produit open source permettant de stocker des images Docker, comme le produit Docker Registry.  
-
 Il permet de gérer des comptes, la réplication d'image, a une interface web et une API RESTful.
 
 - [Repository harbor](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/harbor)
@@ -145,7 +142,6 @@ sysctl -w vm.max_map_count=262144
 
 ### Présentation :
 Grafana est un logiciel open source qui permet la visualisation de données. (anciennement sous licence Apache 2.0 avant avril 2021) qui permet la visualisation de données.  
-
 Il permet de réaliser des tableaux de bord et des graphiques depuis plusieurs sources dont des bases de données temporelles comme Graphite, InfluxDB et OpenTSDB3.
 
 ### Installation :
