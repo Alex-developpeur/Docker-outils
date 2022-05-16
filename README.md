@@ -30,7 +30,7 @@ Pour notre projet nous avons utilisé un serveur Debian installé sur une instan
 ### Présentation :
 Le cloud AWS propose une vaste gamme de services d'infrastructure, notamment des services d'optimisation
 de la puissance de calcul, des options de stockage, de mise en réseau et des bases de données fournis en
-tant que ressources utiles. Pour ce projet une instance EC2 a été utilisée.
+tant que ressources utiles.
 
 ### Installation :
 - Création du groupe de sécurité (SSH, HTTP, HTTPS).
@@ -43,7 +43,7 @@ tant que ressources utiles. Pour ce projet une instance EC2 a été utilisée.
 - [Documentation employée](https://docs.docker.com/engine/install/debian/)
 
 ### Présentation :
-Docker est une plate-forme logicielle qui vous permet de concevoir, tester et déployer des applications rapidement. Docker intègre les logiciels dans des unités normalisées appelées conteneurs, qui rassemblent tous les éléments nécessaires à leur fonctionnement, dont les bibliothèques, les outils système, le code et l'environnement d'exécution. Avec Docker, vous pouvez facilement déployer et dimensionner des applications dans n'importe quel environnement, avec l'assurance que votre code s'exécutera correctement. Pour ce projet l'outil Dokcer Compose a été utilisé.
+Docker est une plate-forme logicielle qui vous permet de concevoir, tester et déployer des applications rapidement. Docker intègre les logiciels dans des unités normalisées appelées conteneurs, qui rassemblent tous les éléments nécessaires à leur fonctionnement, dont les bibliothèques, les outils système, le code et l'environnement d'exécution. Avec Docker, vous pouvez facilement déployer et dimensionner des applications dans n'importe quel environnement, avec l'assurance que votre code s'exécutera correctement.
 
 ### Installation :
 Les commandes a entrer en console :
