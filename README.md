@@ -69,7 +69,7 @@ Il Génère et renouvelle des certificats Let’s Encrypt et a une interface web
 Nous nous sommes servis d'un ficher docker-compose.yml pour l'installation, d'un fichier traefik.yml pour la configuration, d'un fichier acme.json pour les certificats et d'un fichier passwd pour les authentifications.  
 
 Les commandes a entrer en console :
-```properties
+```bash
 mkdir data
 touch data/acme.json
 chmod 600 data/acme.json
@@ -81,7 +81,7 @@ sudo htpasswd ./mdp/passwd *******
 docker compose up -d
 ```
 
-> ### Harbor
+#### **Harbor**
 
 ### Présentation :
 Harbor est un produit open source permettant de stocker des images Docker, comme le produit Docker Registry.  
@@ -96,7 +96,7 @@ Il permet de gérer des comptes, la réplication d'image, a une interface web et
 Nous avons utilisé un ficher docker-compose.yml pour l'installation, des fichiers de configuration bitnami du repository GitHub 2/debian10. Auxquels nous avons apporté les modifications propres à notre serveur.
 
 Les commandes a entrer en console :
-```properties
+```bash
 docker compose up -d
 ```
 
@@ -105,7 +105,7 @@ docker compose up -d
 
 Problème avec le header X-Forwarded-Proto répété par le reverse Nginx et Traefik. Il faut donc désactiver cette fonctionnalité sur Nginx.
 
-> ### Sonarqube
+#### **Sonarqube**
 - [Repository harbor](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/harbor)
 - [Application sonarqube](https://sonarqube-gr3.cefim-formation.org)
 - [Documentation employée](https://forge.univ-lyon1.fr/tiw-is/tiw-is-2020-sources/-/blob/efd602563b08421d76bf7c86ebe3081ed49118af/sonar/docker-compose.yaml)
@@ -117,7 +117,7 @@ SonarQube (précédemment Sonar2) est un logiciel open source permettant de mesu
 Nous avons recopié le fichier docker-compose.tml proposé sur ce site et ajouter les modifications nécessaires.  
 
 Les commandes a entrer en console :
-```properties
+```bash
 docker compose up -d
 ```
 
@@ -134,11 +134,11 @@ ERROR: [2] bootstrap checks failed
 ```
 
 Les commandes a entrer en console :
-```properties
+```bash
 sysctl -w vm.max_map_count=262144
 ```
 
-> ### Grafana
+#### **Grafana**
 - [Repository grafana](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/grafana)
 - [Application grafana](https://grafana-gr3.cefim-formation.org)
 - [Documentation employée](https://grafana.com/docs/grafana/latest/installation/docker/)
@@ -152,11 +152,11 @@ Il permet de réaliser des tableaux de bord et des graphiques depuis plusieurs s
 Réalisation du fichier docker-compose.yml et des fichiers loki_ds.yml et prometheus_ds.yml.
 
 Les commandes a entrer en console :
-```properties
+```bash
 docker compose up -d
 ```
 
-> ### Prometheus
+#### **Prometheus**
 - [Repository prometheus](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/prometheus)
 - [Application prometheus](https://prometheus-gr3.cefim-formation.org)
 - [Documentation employée](https://dev.to/ablx/minimal-prometheus-setup-with-docker-compose-56mp)
@@ -168,11 +168,11 @@ Prometheus est une application de surveillance open source. Il récupère les po
 Mise en place du fichier docker-compose.yml et des fichiers associés pour la gestion des messages d'alerte.
 
 Les commandes a entrer en console :
-```properties
+```bash
 docker compose up -d
 ```
 
-> ### Loki
+#### **Loki**
 - [Repository loki](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/loki)
 - [Application loki](https://loki-gr3.cefim-formation.org)
 - [Documentation employée](https://grafana.com/docs/loki/latest/getting-started/)
@@ -184,6 +184,6 @@ Loki est un système d'agrégation de journaux, hautement disponible, inspiré d
 Téléchargement des fichiers docker-compose.yml, loki-config.yml, promtail-local-config.yml.  
 
 Les commandes a entrer en console :
-```properties
+```bash
 docker compose up -d
 ```
