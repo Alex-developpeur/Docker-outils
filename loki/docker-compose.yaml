@@ -1,10 +1,6 @@
 ---
 version: "3.9"
 
-networks:
-  proxy:
-    name: traefik
-
 services:
   loki:
     image: grafana/loki:2.5.0
@@ -12,11 +8,11 @@ services:
 #      - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
     networks:
+      - lokinet
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.gateway.tls=true"
-      - "traefik.http.routers.gateway.tls.certresolver=encrypt-resolver"
+      - "traefik.docker.network=traefik"
       - "traefik.http.routers.gateway.rule=Host(`loki-gr3.cefim-formation.org`)"
       - "traefik.http.routers.gateway.entrypoints=websecure"
       - "traefik.http.routers.gateway.middlewares=auth"
@@ -27,4 +23,9 @@ services:
       - /var/log:/var/log
     command: -config.file=/etc/promtail/config.yml
     networks:
-      - proxy
+      - lokinet
+
+networks:
+  lokinet:
+  proxy:
+    name: traefik     

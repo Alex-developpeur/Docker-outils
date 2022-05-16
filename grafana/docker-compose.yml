@@ -14,14 +14,13 @@ services:
       - grafana-data:/var/lib/grafana
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.grafana.tls=true"
-      - "traefik.http.routers.grafana.tls.certresolver=encrypt-resolver"
       - "traefik.http.routers.grafana.rule=Host(`grafana-gr3.cefim-formation.org`)"
       - "traefik.http.routers.grafana.entrypoints=websecure"
 
 volumes:
   grafana-data:
 
-networks: 
-  proxy:
-    name: traefik
+networks:
+  proxy: 
+    external:
+      name: traefik
