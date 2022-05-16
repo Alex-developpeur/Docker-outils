@@ -21,7 +21,7 @@ Rendu :
 ## **Réalisation**
 
 ## Présentation :
-Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS ainsi que Docker compose pour la contenerisarion.
+Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS ainsi que Docker Compose pour la contenerisarion.
 
 ## Installation :
 
