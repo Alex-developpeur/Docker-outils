@@ -20,20 +20,18 @@ Rendu :
 
 ## Réalisation
 
-> ### Serveur
-
 ### Présentation :
-Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS ainsi que Docker pour la contenerisarion.
+Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS ainsi que Docker compose pour la contenerisarion.
 
 ### Installation :
 
-> ### Serveur
+#### **Serveur**
 - Création du groupe de sécurité (SSH, HTTP, HTTPS).
 - Création d'une clé SSH.
 - Création d'une IP statique.
 - Création d'une instance EC2 t2.medium 2 core et 4 GB de RAM et 25 GB de stockage avec Debian pour installer Docker.
 
-> ### Docker
+#### **Docker**
 
 - [Documentation employée](https://docs.docker.com/engine/install/debian/)
 
