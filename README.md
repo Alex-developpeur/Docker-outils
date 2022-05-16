@@ -1,6 +1,6 @@
 # Outils
 
-## Cahier des charges
+## **Cahier des charges**
 
 Objectif : Installer et configurer une suite d'outil exclusivement en conteneur  
 Travail d'équipe : Oui  
@@ -18,20 +18,20 @@ Rendu :
 - Versionner votre code dans un projet GitLab nommé "Outils"
 - Préparer une présentation de votre projet (organisation, architecture, difficulté, résultat, point de vérification de fonctionnement)
 
-## Réalisation
+## **Réalisation**
 
-### Présentation :
+## Présentation :
 Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS ainsi que Docker compose pour la contenerisarion.
 
-### Installation :
+## Installation :
 
-#### **Serveur**
+### **Serveur**
 - Création du groupe de sécurité (SSH, HTTP, HTTPS).
 - Création d'une clé SSH.
 - Création d'une IP statique.
 - Création d'une instance EC2 t2.medium 2 core et 4 GB de RAM et 25 GB de stockage avec Debian pour installer Docker.
 
-#### **Docker**
+### **Docker**
 
 - [Documentation employée](https://docs.docker.com/engine/install/debian/)
 
@@ -54,7 +54,7 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
-#### **Traefik**
+### **Traefik**
 - [Repository traefik](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/traefik)
 - [Application traefik](https://traefik-gr3.cefim-formation.org)
 - [Documentation  employée](https://doc.traefik.io/traefik/providers/docker/)
@@ -81,7 +81,7 @@ sudo htpasswd ./mdp/passwd *******
 docker compose up -d
 ```
 
-#### **Harbor**
+### **Harbor**
 
 ### Présentation :
 Harbor est un produit open source permettant de stocker des images Docker, comme le produit Docker Registry.  
@@ -105,7 +105,7 @@ docker compose up -d
 
 Problème avec le header X-Forwarded-Proto répété par le reverse Nginx et Traefik. Il faut donc désactiver cette fonctionnalité sur Nginx.
 
-#### **Sonarqube**
+### **Sonarqube**
 - [Repository harbor](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/harbor)
 - [Application sonarqube](https://sonarqube-gr3.cefim-formation.org)
 - [Documentation employée](https://forge.univ-lyon1.fr/tiw-is/tiw-is-2020-sources/-/blob/efd602563b08421d76bf7c86ebe3081ed49118af/sonar/docker-compose.yaml)
@@ -138,7 +138,7 @@ Les commandes a entrer en console :
 sysctl -w vm.max_map_count=262144
 ```
 
-#### **Grafana**
+### **Grafana**
 - [Repository grafana](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/grafana)
 - [Application grafana](https://grafana-gr3.cefim-formation.org)
 - [Documentation employée](https://grafana.com/docs/grafana/latest/installation/docker/)
@@ -156,7 +156,7 @@ Les commandes a entrer en console :
 docker compose up -d
 ```
 
-#### **Prometheus**
+### **Prometheus**
 - [Repository prometheus](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/prometheus)
 - [Application prometheus](https://prometheus-gr3.cefim-formation.org)
 - [Documentation employée](https://dev.to/ablx/minimal-prometheus-setup-with-docker-compose-56mp)
@@ -172,7 +172,7 @@ Les commandes a entrer en console :
 docker compose up -d
 ```
 
-#### **Loki**
+### **Loki**
 - [Repository loki](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/loki)
 - [Application loki](https://loki-gr3.cefim-formation.org)
 - [Documentation employée](https://grafana.com/docs/loki/latest/getting-started/)
