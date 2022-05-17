@@ -7,7 +7,7 @@
 - [Application grafana](https://grafana-gr3.cefim-formation.org)
 - [Application prometheus](https://prometheus-gr3.cefim-formation.org)
 - [Application loki](https://loki-gr3.cefim-formation.org)
-- 
+
 ## **Cahier des charges**
 
 Objectif : Installer et configurer une suite d'outil exclusivement en conteneur  
