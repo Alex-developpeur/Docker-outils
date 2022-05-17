@@ -21,7 +21,7 @@ Rendu :
 ## **Réalisation**
 
 ## Présentation :
-Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS ainsi que Docker Compose pour la contenerisarion.
+Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS sur lequel nous avons installé Docker Compose pour la contenerisarion. Puis nous avons installé Traefik comme reverse proxy et load balancer pour placer tous nos conteneurs derière.
 
 ## Installation :
 
