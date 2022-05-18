@@ -6,7 +6,7 @@ services:
     image: grafana/loki:2.5.0
     container_name: grafana-loki
     command: -config.file=/etc/loki/local-config.yaml
-    restart: always
+    restart: unless-stopped
     networks:
       - lokinet
       - traefik

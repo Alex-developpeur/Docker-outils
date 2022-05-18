@@ -8,15 +8,16 @@ services:
 #      - 9000:9090
     networks:
       - traefik
+    restart: unless-stopped
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
     command: --web.enable-lifecycle  --config.file=/etc/prometheus/prometheus.yml
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(`prometheus-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.prometheus.entrypoints=websecure"
-      - "traefik.http.routers.prometheus.middlewares=auth"
+      - "traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE}.middlewares=auth"
 
 volumes:
   prometheus-data:

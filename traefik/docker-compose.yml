@@ -4,29 +4,30 @@ version: "3.9"
 services:
 
   traefik:
-    image: "traefik:latest"
-    container_name: "traefik"
+    image: "${SERVICE}:latest"
+    container_name: "${SERVICE}"
     security_opt:
       - no-new-privileges:true
     ports:
       - "80:80"
       - "443:443"
+    restart: unless-stopped
     networks:
       - traefik
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./mdp/passwd:/etc/traefik/passwd
+      - ./mdp/passwd:/etc/traefik/passwd:ro
       - /etc/localtime:/etc/localtime:ro
       - ./log:/log
       - ./data/acme.json:/acme.json
     labels:
       - "traefik.enable=true"
       - traefik.docker.network=traefik
-      - "traefik.http.routers.traefik.rule=Host(`traefik-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.traefik.entrypoints=websecure"
-      - "traefik.http.routers.traefik.service=api@internal"
-#      - "traefik.http.routers.traefik.middlewares=auth"
+      - "traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE}.service=api@internal"
+#      - "traefik.http.routers.${SERVICE}.middlewares=auth"
 #      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/passwd"
 
 networks:
