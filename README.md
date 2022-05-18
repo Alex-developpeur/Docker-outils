@@ -164,7 +164,7 @@ Grafana est un logiciel open source qui permet la visualisation de données. (an
 Il permet de réaliser des tableaux de bord et des graphiques depuis plusieurs sources dont des bases de données temporelles comme Graphite, InfluxDB et OpenTSDB3.
 
 ### Installation :
-Réalisation du fichier docker-compose.yml et des fichiers loki_ds.yml et prometheus_ds.yml.
+Réalisation du fichier docker-compose.yml et des fichiers loki_ds.yml et prometheus_ds.yml pour ajouter automatiquement les datasources.
 
 Les commandes a entrer en console :
 ```bash
