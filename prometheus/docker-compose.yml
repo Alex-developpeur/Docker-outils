@@ -4,8 +4,6 @@ version: '3.9'
 services:
   prometheus:
     image: prom/prometheus
-#    ports:
-#      - 9000:9090
     networks:
       - traefik
     restart: unless-stopped
@@ -19,8 +17,19 @@ services:
       - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
       - "traefik.http.routers.${SERVICE}.middlewares=auth"
 
+  alertmanager:
+    image: prom/alertmanager:latest
+    restart: unless-stopped
+    ports:
+      - "9093:9093"
+    volumes:
+      - "./alertmanager:/config"
+      - alertmanager-data:/data
+    command: --config.file=/config/alertmanager.yml --log.level=debug 
+
 volumes:
   prometheus-data:
+  alertmanager-data:
 
 networks: 
   traefik:

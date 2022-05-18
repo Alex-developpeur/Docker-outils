@@ -2,6 +2,5 @@ datasources:
   - name: Prometheus
     access: proxy
     type: prometheus
-    url: https://prometheus-gr3.cefim-formation.org
+    url: http://prometheus:9090
     isDefault: true
-
