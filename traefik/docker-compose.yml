@@ -17,18 +17,18 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./mdp/passwd:/etc/traefik/passwd:ro
+      - ./data/.passwd:/etc/traefik/.passwd:ro
       - /etc/localtime:/etc/localtime:ro
       - ./log:/log
       - ./data/acme.json:/acme.json
     labels:
       - "traefik.enable=true"
-      - traefik.docker.network=traefik
+      - "traefik.docker.network=traefik"
       - "traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
       - "traefik.http.routers.${SERVICE}.service=api@internal"
-#      - "traefik.http.routers.${SERVICE}.middlewares=auth"
-#      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/passwd"
+      - "traefik.http.routers.${SERVICE}.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/.passwd"
 
 networks:
   traefik:
