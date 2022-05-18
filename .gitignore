@@ -1,3 +1,7 @@
 *.log
 */data/
 */.env
+*/*.pem
+*/*.crt
+*/*.key
+*/passwd
