@@ -87,13 +87,13 @@ Nous nous sommes servis d'un ficher docker-compose.yml pour l'installation, d'un
 
 Les commandes a entrer en console :
 ```bash
-mkdir data
-touch data/acme.json
-chmod 600 data/acme.json
+touch acme.json
+chmod 600 acme.json
 
-mkdir mdp
-sudo htpasswd -c ./mdp/passwd ****
-sudo htpasswd ./mdp/passwd *******
+sudo htpasswd -c .passwd ****
+sudo htpasswd .passwd *******
+
+docker network create traefik
 
 docker compose up -d
 ```
