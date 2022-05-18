@@ -12,7 +12,7 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - proxy
+      - traefik
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - ./traefik.yml:/etc/traefik/traefik.yml:ro
@@ -22,12 +22,13 @@ services:
       - ./data/acme.json:/acme.json
     labels:
       - "traefik.enable=true"
+      - traefik.docker.network=traefik
       - "traefik.http.routers.traefik.rule=Host(`traefik-gr3.cefim-formation.org`)"
       - "traefik.http.routers.traefik.entrypoints=websecure"
       - "traefik.http.routers.traefik.service=api@internal"
-      - "traefik.http.routers.traefik.middlewares=auth"
-      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/passwd"
+#      - "traefik.http.routers.traefik.middlewares=auth"
+#      - "traefik.http.middlewares.auth.basicauth.usersfile=/etc/traefik/passwd"
 
 networks:
-  proxy:
-    name: traefik
+  traefik:
+    external: true

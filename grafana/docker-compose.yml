@@ -4,10 +4,8 @@ version: '3.9'
 services:
   grafana:
     image: grafana/grafana
-#    ports:
-#      - 3000:3000
     networks:
-      - proxy
+      - traefik
     restart: unless-stopped
     volumes:
       - ./datasources:/etc/grafana/datasources
@@ -21,6 +19,5 @@ volumes:
   grafana-data:
 
 networks:
-  proxy: 
-    external:
-      name: traefik
+  traefik:
+    external: true

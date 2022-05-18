@@ -7,7 +7,7 @@ services:
 #    ports:
 #      - 9000:9090
     networks:
-      - proxy
+      - traefik
     volumes:
       - ./prometheus:/etc/prometheus
       - prometheus-data:/prometheus
@@ -22,6 +22,5 @@ volumes:
   prometheus-data:
 
 networks: 
-  proxy:
-    external:
-      name: traefik
+  traefik:
+    external: true

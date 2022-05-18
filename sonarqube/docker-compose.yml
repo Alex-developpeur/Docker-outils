@@ -5,7 +5,7 @@ services:
   sonarqube:
     image: sonarqube
     networks:
-      - proxy
+      - traefik
       - sonarnet
     volumes:
       # - "conf:/opt/sonarqube/conf"
@@ -44,5 +44,6 @@ volumes:
 
 networks:
   sonarnet:
-  proxy:
-    name: traefik
+    internal: true
+  traefik:
+    external: true
