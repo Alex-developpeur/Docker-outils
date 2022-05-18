@@ -1,4 +1,5 @@
 *.log
 .data/
-mdp/
-data/
+*/mdp/
+*/data/
+*/.env
