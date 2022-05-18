@@ -5,8 +5,8 @@ services:
   sonarqube:
     image: "${SERVICE}:latest"
     networks:
-      - traefik
-      - sonarnet
+      - traefik-net
+      - sonar-net
     volumes:
       # - "conf:/opt/sonarqube/conf"
       - "extensions:/opt/sonarqube/extensions"
@@ -21,7 +21,7 @@ services:
       - sonar.jdbc.url=jdbc:postgresql://postgres/sonarqube
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=traefik-net"
       - "traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
 
@@ -30,7 +30,7 @@ services:
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
-      - sonarnet
+      - sonar-net
     environment:
       POSTGRES_USER: $DB_USER
       POSTGRES_PASSWORD: $DB_PASSWORD
@@ -44,7 +44,7 @@ volumes:
   pg_data:
 
 networks:
-  sonarnet:
+  sonar-net:
     internal: true
-  traefik:
+  traefik-net:
     external: true

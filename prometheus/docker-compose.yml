@@ -5,7 +5,7 @@ services:
   prometheus:
     image: prom/prometheus
     networks:
-      - traefik
+      - traefik-net
     restart: unless-stopped
     volumes:
       - ./prometheus:/etc/prometheus
@@ -32,5 +32,5 @@ volumes:
   alertmanager-data:
 
 networks: 
-  traefik:
+  traefik-net:
     external: true

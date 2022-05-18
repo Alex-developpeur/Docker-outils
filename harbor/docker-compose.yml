@@ -5,7 +5,7 @@ services:
   registry:
     image: docker.io/bitnami/harbor-registry:2
     networks:
-      - harbornet
+      - harbor-net
     environment:
       - REGISTRY_HTTP_SECRET=$HARBOR_PASSWORD
     volumes:
@@ -14,7 +14,7 @@ services:
   registryctl:
     image: docker.io/bitnami/harbor-registryctl:2
     networks:
-      - harbornet
+      - harbor-net
     environment:
       - CORE_SECRET=$HARBOR_PASSWORD
       - JOBSERVICE_SECRET=$HARBOR_PASSWORD
@@ -27,7 +27,7 @@ services:
     image: docker.io/bitnami/postgresql:13
     container_name: harbor-db
     networks:
-      - harbornet
+      - harbor-net
     environment:
       - POSTGRESQL_PASSWORD=$DB_PASSWORD
       - POSTGRESQL_DATABASE=registry
@@ -37,7 +37,7 @@ services:
     image: docker.io/bitnami/harbor-core:2
     container_name: harbor-core
     networks:
-      - harbornet
+      - harbor-net
     depends_on:
       - registry
       - chartmuseum
@@ -82,14 +82,14 @@ services:
     image: docker.io/bitnami/harbor-portal:2
     container_name: harbor-portal
     networks:
-      - harbornet
+      - harbor-net
     depends_on:
       - core
   jobservice:
     image: docker.io/bitnami/harbor-jobservice:2
     container_name: harbor-jobservice
     networks:
-      - harbornet
+      - harbor-net
     depends_on:
       - redis
       - core
@@ -106,7 +106,7 @@ services:
   redis:
     image: docker.io/bitnami/redis:latest
     networks:
-      - harbornet
+      - harbor-net
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
@@ -116,8 +116,8 @@ services:
     volumes:
       - ./config/proxy/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro
     networks:
-      - traefik
-      - harbornet
+      - traefik-net
+      - harbor-net
     depends_on:
       - postgresql
       - registry
@@ -125,7 +125,7 @@ services:
       - portal
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=traefik-net"
       - "traefik.http.routers.${SERVICE}-nginx.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.${SERVICE}-nginx.entrypoints=websecure"
 
@@ -133,7 +133,7 @@ services:
     container_name: chartmuseum
     image: docker.io/bitnami/chartmuseum:0
     networks:
-      - harbornet
+      - harbor-net
     environment:
       - CACHE=redis
       - CACHE_REDIS_ADDR=redis:6379
@@ -160,7 +160,7 @@ volumes:
     driver: local
 
 networks:
-  harbornet:
+  harbor-net:
     internal: true
-  traefik:
+  traefik-net:
     external: true

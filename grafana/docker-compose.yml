@@ -5,7 +5,7 @@ services:
   grafana:
     image: grafana/grafana
     networks:
-      - traefik
+      - traefik-net
     restart: unless-stopped
     volumes:
       - ./datasources:/etc/grafana/provisioning/datasources
@@ -19,5 +19,5 @@ volumes:
   grafana-data:
 
 networks:
-  traefik:
+  traefik-net:
     external: true

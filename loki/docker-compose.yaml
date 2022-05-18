@@ -8,11 +8,11 @@ services:
     command: -config.file=/etc/loki/local-config.yaml
     restart: unless-stopped
     networks:
-      - lokinet
-      - traefik
+      - loki-net
+      - traefik-net
     labels:
       - "traefik.enable=true"
-      - "traefik.docker.network=traefik"
+      - "traefik.docker.network=traefik-net"
       - "traefik.http.routers.${SERVICE}.rule=Host(`${DOMAIN}`)"
       - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
       - "traefik.http.routers.${SERVICE}.middlewares=auth"
@@ -23,10 +23,10 @@ services:
       - /var/log:/var/log:ro
     command: -config.file=/etc/promtail/config.yml
     networks:
-      - lokinet
+      - loki-net
 
 networks:
-  lokinet:
+  loki-net:
     internal: true
-  traefik:
+  traefik-net:
     external: true
