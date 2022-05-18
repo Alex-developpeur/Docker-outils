@@ -13,7 +13,7 @@
 Objectif : Installer et configurer une suite d'outil exclusivement en [conteneur](#docker)  
 Travail d'équipe : Oui  
 Besoin :
-- Déployer un ou plusieurs serveurs accessibles par tous les membres du groupe (Prérequis : Debian10)
+- Déployer un ou plusieurs serveurs accessibles par tous les membres du groupe (Prérequis : [Debian10](#serveur))
 - Installer et Configurer un proxy - [Traefik](#traefik)
 - Installer et Configurer un registry externe - [Harbor](#harbor)
 - Installer et Configurer un outil de test - [Sonarqube](#sonarqube)
@@ -29,7 +29,7 @@ Rendu :
 ## **Réalisation**
 
 ## Présentation :
-Pour notre projet nous avons utilisé un serveur **Debian** installé sur une instance **AWS** sur lequel nous avons installé **Docker Compose** pour la contenerisarion. Puis nous avons installé **Traefik** comme reverse proxy et load balancer pour placer tous nos conteneurs derière.
+Pour notre projet nous avons utilisé un serveur **Debian** installé sur une instance **AWS** sur lequel nous avons installé **Docker Compose** pour la contenerisarion. Puis nous avons installé **Traefik** comme reverse proxy et load balancer pour placer tous nos conteneurs derrière.
 
 ## Installation :
 
@@ -54,7 +54,7 @@ tant que ressources utiles.
 Docker est une plate-forme logicielle qui vous permet de concevoir, tester et déployer des applications rapidement. Docker intègre les logiciels dans des unités normalisées appelées conteneurs, qui rassemblent tous les éléments nécessaires à leur fonctionnement, dont les bibliothèques, les outils système, le code et l'environnement d'exécution. Avec Docker, vous pouvez facilement déployer et dimensionner des applications dans n'importe quel environnement, avec l'assurance que votre code s'exécutera correctement.
 
 ### Installation :
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sudo apt-get update
 sudo apt-get install \
@@ -73,21 +73,19 @@ sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
 
-### **Link**
-
 ### **Traefik**
 - [Repository traefik](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/traefik)
 - [Application traefik](https://traefik-gr3.cefim-formation.org)
 - [Documentation  employée](https://doc.traefik.io/traefik/providers/docker/)
 ### Présentation :
-Traefik est un reverse proxy et un répartiteur de charge ppen-source qui facilite le déploiement de micro services.  
+Traefik est un reverse proxy et un répartiteur de charge open source qui facilite le déploiement de micro services.  
 Il a été spécialement développé pour fonctionner avec Docker.  
 Il Génère et renouvelle des certificats Let’s Encrypt et a une interface web.
 
 ### Installation :
 Nous nous sommes servis d'un ficher docker-compose.yml pour l'installation, d'un fichier traefik.yml pour la configuration, d'un fichier acme.json pour les certificats et d'un fichier passwd pour les authentifications.  
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 touch acme.json
 chmod 600 acme.json
@@ -113,7 +111,7 @@ Il permet de gérer des comptes, la réplication d'image, a une interface web et
 ### Installation :
 Nous avons utilisé un ficher docker-compose.yml pour l'installation, des fichiers de configuration bitnami du repository GitHub 2/debian10. Auxquels nous avons apporté les modifications propres à notre serveur.
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sudo docker compose up -d
 ```
@@ -134,7 +132,7 @@ SonarQube (précédemment Sonar2) est un logiciel open source permettant de mesu
 ### Installation :
 Nous avons recopié le fichier docker-compose.tml proposé sur ce site et ajouter les modifications nécessaires.  
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sudo docker compose up -d
 ```
@@ -151,7 +149,7 @@ ERROR: [2] bootstrap checks failed
 [2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
 ```
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sysctl -w vm.max_map_count=262144
 ```
@@ -168,7 +166,7 @@ Il permet de réaliser des tableaux de bord et des graphiques depuis plusieurs s
 ### Installation :
 Réalisation du fichier docker-compose.yml et des fichiers loki_ds.yml et prometheus_ds.yml pour ajouter automatiquement les datasources.
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sudo docker compose up -d
 ```
@@ -184,7 +182,7 @@ Prometheus est une application de surveillance open source. Il récupère les po
 ### Installation :
 Mise en place du fichier docker-compose.yml et des fichiers associés pour la gestion des messages d'alerte.
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sudo docker compose up -d
 ```
@@ -200,7 +198,7 @@ Loki est un système d'agrégation de journaux, hautement disponible, inspiré d
 ### Installation :
 Téléchargement des fichiers docker-compose.yml, loki-config.yml, promtail-local-config.yml.  
 
-Les commandes a entrer en console :
+Les commandes à entrer en console :
 ```bash
 sudo docker compose up -d
 ```
