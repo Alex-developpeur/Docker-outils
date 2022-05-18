@@ -29,7 +29,7 @@ Rendu :
 ## **Réalisation**
 
 ## Présentation :
-Pour notre projet nous avons utilisé un serveur Debian installé sur une instance AWS sur lequel nous avons installé Docker Compose pour la contenerisarion. Puis nous avons installé Traefik comme reverse proxy et load balancer pour placer tous nos conteneurs derière.
+Pour notre projet nous avons utilisé un serveur **Debian** installé sur une instance **AWS** sur lequel nous avons installé **Docker Compose** pour la contenerisarion. Puis nous avons installé **Traefik** comme reverse proxy et load balancer pour placer tous nos conteneurs derière.
 
 ## Installation :
 
@@ -95,9 +95,9 @@ chmod 600 acme.json
 sudo htpasswd -c .passwd ****
 sudo htpasswd .passwd *******
 
-docker network create traefik
+sudo docker network create traefik
 
-docker compose up -d
+sudo docker compose up -d
 ```
 
 ### **Harbor**
@@ -115,7 +115,7 @@ Nous avons utilisé un ficher docker-compose.yml pour l'installation, des fichie
 
 Les commandes a entrer en console :
 ```bash
-docker compose up -d
+sudo docker compose up -d
 ```
 
 ### Difficultés rencontrées :
@@ -136,7 +136,7 @@ Nous avons recopié le fichier docker-compose.tml proposé sur ce site et ajoute
 
 Les commandes a entrer en console :
 ```bash
-docker compose up -d
+sudo docker compose up -d
 ```
 
 ### Difficultés rencontrées :
@@ -170,7 +170,7 @@ Réalisation du fichier docker-compose.yml et des fichiers loki_ds.yml et promet
 
 Les commandes a entrer en console :
 ```bash
-docker compose up -d
+sudo docker compose up -d
 ```
 
 ### **Prometheus**
@@ -186,7 +186,7 @@ Mise en place du fichier docker-compose.yml et des fichiers associés pour la ge
 
 Les commandes a entrer en console :
 ```bash
-docker compose up -d
+sudo docker compose up -d
 ```
 
 ### **Loki**
@@ -202,5 +202,5 @@ Téléchargement des fichiers docker-compose.yml, loki-config.yml, promtail-loca
 
 Les commandes a entrer en console :
 ```bash
-docker compose up -d
+sudo docker compose up -d
 ```
