@@ -14,12 +14,12 @@ Objectif : Installer et configurer une suite d'outil exclusivement en conteneur
 Travail d'équipe : Oui  
 Besoin :
 - Déployer un ou plusieurs serveurs accessibles par tous les membres du groupe (Prérequis : Debian10)
-- Installer et Configurer un proxy - Traefik
-- Installer et Configurer un registry externe - Harbor
-- Installer et Configurer un outil de test - Sonarqube
-- Installer et Configurer un service de monitoring - Grafana
-- Installer et Configurer un service de supervision - Prometheus
-- Installer et Configurer un service de loging - Loki
+- Installer et Configurer un proxy - [Traefik](#traefik)
+- Installer et Configurer un registry externe - [Harbor](#harbor)
+- Installer et Configurer un outil de test - [Sonarqube](#sonarqube)
+- Installer et Configurer un service de monitoring - [Grafana](#grafana)
+- Installer et Configurer un service de supervision - [Prometheus](#prometheus)
+- Installer et Configurer un service de loging - [Loki](#loki)
 
 Rendu :
 - Fournir une procédure d'installation des divers outils
@@ -72,6 +72,8 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 ```
+
+### **Link**
 
 ### **Traefik**
 - [Repository traefik](https://gitlab-gr3.cefim-formation.org/devops/Outils/-/tree/main/traefik)
