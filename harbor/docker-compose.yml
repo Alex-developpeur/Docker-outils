@@ -7,7 +7,7 @@ services:
     networks:
       - harbornet
     environment:
-      - REGISTRY_HTTP_SECRET=CHANGEME
+      - REGISTRY_HTTP_SECRET=$HARBOR_PASSWORD
     volumes:
       - registry_data:/storage
       - ./config/registry/:/etc/registry/:ro
@@ -16,9 +16,9 @@ services:
     networks:
       - harbornet
     environment:
-      - CORE_SECRET=CHANGEME
-      - JOBSERVICE_SECRET=CHANGEME
-      - REGISTRY_HTTP_SECRET=CHANGEME
+      - CORE_SECRET=$HARBOR_PASSWORD
+      - JOBSERVICE_SECRET=$HARBOR_PASSWORD
+      - REGISTRY_HTTP_SECRET=$HARBOR_PASSWORD
     volumes:
       - registry_data:/storage
       - ./config/registry/:/etc/registry/:ro
@@ -29,7 +29,7 @@ services:
     networks:
       - harbornet
     environment:
-      - POSTGRESQL_PASSWORD=bitnami
+      - POSTGRESQL_PASSWORD=$DB_PASSWORD
       - POSTGRESQL_DATABASE=registry
     volumes:
       - postgresql_data:/bitnami/postgresql
@@ -55,14 +55,14 @@ services:
       - POSTGRESQL_HOST=postgresql
       - POSTGRESQL_PORT=5432
       - POSTGRESQL_DATABASE=registry
-      - POSTGRESQL_USERNAME=postgres
-      - POSTGRESQL_PASSWORD=bitnami
+      - POSTGRESQL_USERNAME=$DB_USER
+      - POSTGRESQL_PASSWORD=$DB_PASSWORD
       - POSTGRESQL_SSLMODE=disable
       - REGISTRY_URL=http://registry:5000
       - TOKEN_SERVICE_URL=http://core:8080/service/token
-      - HARBOR_ADMIN_PASSWORD=bitnami
-      - CORE_SECRET=CHANGEME
-      - JOBSERVICE_SECRET=CHANGEME
+      - HARBOR_ADMIN_PASSWORD=$ADMIN_PASSWORD
+      - CORE_SECRET=$HARBOR_PASSWORD
+      - JOBSERVICE_SECRET=$HARBOR_PASSWORD
       - ADMIRAL_URL=
       - WITH_NOTARY=False
       - WITH_CHARTMUSEUM=True
@@ -94,8 +94,8 @@ services:
       - redis
       - core
     environment:
-      - CORE_SECRET=CHANGEME
-      - JOBSERVICE_SECRET=CHANGEME
+      - CORE_SECRET=$HARBOR_PASSWORD
+      - JOBSERVICE_SECRET=$HARBOR_PASSWORD
       - CORE_URL=http://core:8080
       - REGISTRY_CONTROLLER_URL=http://registryctl:8080
       - REGISTRY_CREDENTIAL_USERNAME=harbor_registry_user
@@ -115,10 +115,8 @@ services:
     container_name: nginx
     volumes:
       - ./config/proxy/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro
-#    ports:
-#      - '80:8080'
     networks:
-      - proxy
+      - traefik
       - harbornet
     depends_on:
       - postgresql
@@ -128,8 +126,8 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=traefik"
-      - "traefik.http.routers.harbor-nginx.rule=Host(`harbor-gr3.cefim-formation.org`)"
-      - "traefik.http.routers.harbor-nginx.entrypoints=websecure"
+      - "traefik.http.routers.${SERVICE}-nginx.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.${SERVICE}-nginx.entrypoints=websecure"
 
   chartmuseum:
     container_name: chartmuseum
@@ -163,5 +161,6 @@ volumes:
 
 networks:
   harbornet:
-  proxy:
-    name: traefik
+    internal: true
+  traefik:
+    external: true

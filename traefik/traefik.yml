@@ -19,7 +19,7 @@ entryPoints:
 certificatesResolvers:
   encrypt-resolver:
     acme:
-      email: "admin@traefik-gr3.cefim-formation.org"
+      email: "admin@${DOMAIN}"
       storage: "acme.json"
       httpChallenge:
         entryPoint: web
