@@ -42,4 +42,14 @@ prometheus-deploy-job:
   script:
     - echo "$PROMETHEUS_ENV" > ~/.env
     - !reference [.generic-deploy-job, script]
+  when: manual
+
+sonarqube-deploy-job:
+  extends: .generic-deploy-job
+  stage: deploy
+  variables:
+    rep: sonarqube
+  script:
+    - echo "$SONARQUBE_ENV" > ~/.env
+    - !reference [.generic-deploy-job, script]
 #  when: manual
