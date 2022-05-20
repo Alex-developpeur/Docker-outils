@@ -10,7 +10,6 @@ stages:
   script:
     - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/$rep/"
     - scp -r ./$rep/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/$rep/
-#    - echo "$GRAFANA_ENV" > ~/.env
     - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/$rep/
     - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
     - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/$rep/ && sudo docker compose pull && sudo docker compose up -d"
@@ -22,5 +21,15 @@ grafana-deploy-job:
     rep: grafana
   script:
     - echo "$GRAFANA_ENV" > ~/.env
+    - !reference [.generic-deploy-job, script]
+  when: manual
+
+loki-deploy-job:
+  extends: .generic-deploy-job
+  stage: deploy
+  variables:
+    rep: loki
+  script:
+    - echo "$LOKI_ENV" > ~/.env
     - !reference [.generic-deploy-job, script]
 #  when: manual
