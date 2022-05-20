@@ -11,11 +11,21 @@ grafana-deploy-job:
   script:
     - echo "$CONFIG_SSH"
     - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/grafana/"
-#    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/grafana/datasources/"
-#    - scp ./grafana/docker-compose.yml $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
-#    - scp ./grafana/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
     - scp -r ./grafana/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
     - echo "$GRAFANA_ENV" > ~/.env
     - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
     - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
     - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/grafana/ && sudo docker compose pull && sudo docker compose up -d"
+
+loki-deploy-job:
+  stage: deploy
+  variables:
+    DEPLOY_HOST: "Docker_gr3"
+  script:
+    - echo "$CONFIG_SSH"
+    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/loki/"
+    - scp -r ./loki/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/loki/
+    - echo "$LOKI_ENV" > ~/.env
+    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/loki/
+    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
+    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/loki/ && sudo docker compose pull && sudo docker compose up -d"
