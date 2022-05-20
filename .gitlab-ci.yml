@@ -52,4 +52,14 @@ sonarqube-deploy-job:
   script:
     - echo "$SONARQUBE_ENV" > ~/.env
     - !reference [.generic-deploy-job, script]
+  when: manual
+
+harbor-deploy-job:
+  extends: .generic-deploy-job
+  stage: deploy
+  variables:
+    rep: harbor
+  script:
+    - echo "$HARBOR_ENV" > ~/.env
+    - !reference [.generic-deploy-job, script]
 #  when: manual
