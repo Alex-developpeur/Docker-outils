@@ -4,95 +4,22 @@ image: registry-gr3.cefim-formation.org/devops/ubuntu-ssh
 stages:
   - deploy
 
+.generic-deploy-job:
+  variables:
+    DEPLOY_HOST: "Docker_gr3"
+  script:
+    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/$rep/"
+    - scp -r ./$rep/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/$rep/
+#    - echo "$GRAFANA_ENV" > ~/.env
+    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/$rep/
+    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
+    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/$rep/ && sudo docker compose pull && sudo docker compose up -d"
+
 grafana-deploy-job:
+  extends: .generic-deploy-job
   stage: deploy
   variables:
-    DEPLOY_HOST: "Docker_gr3"
+    rep: grafana
   script:
-    - echo "$CONFIG_SSH"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/grafana/"
-    - scp -r ./grafana/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
     - echo "$GRAFANA_ENV" > ~/.env
-    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
-    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
-    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/grafana/ && sudo docker compose pull && sudo docker compose up -d"
-  when: manual
-
-loki-deploy-job:
-  stage: deploy
-  variables:
-    DEPLOY_HOST: "Docker_gr3"
-  script:
-    - echo "$CONFIG_SSH"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/loki/"
-    - scp -r ./loki/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/loki/
-    - echo "$LOKI_ENV" > ~/.env
-    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/loki/
-    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
-    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/loki/ && sudo docker compose pull && sudo docker compose up -d"
-  when: manual
-
-prometheus-deploy-job:
-  stage: deploy
-  variables:
-    DEPLOY_HOST: "Docker_gr3"
-  script:
-    - echo "$CONFIG_SSH"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/prometheus/"
-    - scp -r ./prometheus/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/prometheus/
-    - echo "$PROMETHEUS_ENV" > ~/.env
-    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/prometheus/
-    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
-    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/prometheus/ && sudo docker compose pull && sudo docker compose up -d"
-  when: manual
-
-sonarqube-deploy-job:
-  stage: deploy
-  variables:
-    DEPLOY_HOST: "Docker_gr3"
-  script:
-    - echo "$CONFIG_SSH"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/sonarqube/"
-    - scp -r ./sonarqube/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/sonarqube/
-    - echo "$SONARQUBE_ENV" > ~/.env
-    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/sonarqube/
-    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
-    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/sonarqube/ && sudo docker compose pull && sudo docker compose up -d"
-  when: manual
-
-harbor-deploy-job:
-  stage: deploy
-  variables:
-    DEPLOY_HOST: "Docker_gr3"
-  script:
-    - echo "$CONFIG_SSH"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/harbor/"
-    - scp -r ./harbor/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/harbor/
-    - echo "$HARBOR_ENV" > ~/.env
-    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/harbor/
-    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
-    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/harbor/ && sudo docker compose pull && sudo docker compose up -d"
-  when: manual
-
-traefik-deploy-job:
-  stage: deploy
-  variables:
-    DEPLOY_HOST: "Docker_gr3"
-  script:
-    - echo "$CONFIG_SSH"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/traefik/"
-    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/traefik/data/"
-    - scp -r ./traefik/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/
-    - echo "$TRAEFIK_ENV" > ~/.env
-    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/
-
-    - echo "$PASSWD" > ~/.passwd
-    - scp ~/.passwd $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/data
-
-    - echo "$ACME_JSON" > ~/acme.json
-    - chmod 600 ~/acme.json
-    - scp ~/acme.json $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/data
-
-    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
-    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/traefik/ && sudo docker compose pull && sudo docker compose up -d"
-  when: manual
+#  when: manual
