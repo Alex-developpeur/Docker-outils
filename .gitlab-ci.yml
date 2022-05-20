@@ -76,16 +76,17 @@ traefik-deploy-job:
   script:
     - echo "$CONFIG_SSH"
     - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/traefik/"
+    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/traefik/data/"
     - scp -r ./traefik/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/
     - echo "$TRAEFIK_ENV" > ~/.env
     - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/
 
-    - echo "$PASSWD" > ~/data/.passwd
-    - scp ~/data/.passwd $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/
+    - echo "$PASSWD" > ~/.passwd
+    - scp ~/.passwd $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/data/
 
-    - echo "$ACME_JSON" > ~/data/acme.json
-    - chmod 600 ~/data/acme.json
-    - scp ~/data/acme.json $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/
+    - echo "$ACME_JSON" > ~/acme.json
+    - chmod 600 ~/acme.json
+    - scp ~/acme.json $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/traefik/data/
 
     - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
     - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/traefik/ && sudo docker compose pull && sudo docker compose up -d"
