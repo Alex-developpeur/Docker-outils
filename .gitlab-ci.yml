@@ -32,4 +32,14 @@ loki-deploy-job:
   script:
     - echo "$LOKI_ENV" > ~/.env
     - !reference [.generic-deploy-job, script]
+  when: manual
+
+prometheus-deploy-job:
+  extends: .generic-deploy-job
+  stage: deploy
+  variables:
+    rep: prometheus
+  script:
+    - echo "$PROMETHEUS_ENV" > ~/.env
+    - !reference [.generic-deploy-job, script]
 #  when: manual
