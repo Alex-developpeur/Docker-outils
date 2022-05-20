@@ -55,3 +55,16 @@ sonarqube-deploy-job:
     - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/sonarqube/
     - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
     - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/sonarqube/ && sudo docker compose pull && sudo docker compose up -d"
+
+sonarqube-deploy-job:
+  stage: deploy
+  variables:
+    DEPLOY_HOST: "Docker_gr3"
+  script:
+    - echo "$CONFIG_SSH"
+    - ssh $DEPLOY_HOST "mkdir -p ~/${CI_PROJECT_NAME}_deploy/harbor/"
+    - scp -r ./harbor/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/harbor/
+    - echo "$HARBOR_ENV" > ~/.env
+    - scp ~/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/harbor/
+    - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
+    - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/harbor/ && sudo docker compose pull && sudo docker compose up -d"
