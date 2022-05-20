@@ -15,6 +15,6 @@ grafana-deploy-job:
 #    - scp ./grafana/docker-compose.yml $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
 #    - scp ./grafana/.env $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
     - scp -r ./grafana/* $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
-    - scp $GRAFANA_ENV $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
+    - scp "$GRAFANA_ENV" $DEPLOY_HOST:~/${CI_PROJECT_NAME}_deploy/grafana/
     - ssh $DEPLOY_HOST "echo ${CI_REGISTRY_PASSWORD} | sudo docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}"
     - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/grafana/ && sudo docker compose pull && sudo docker compose up -d"
