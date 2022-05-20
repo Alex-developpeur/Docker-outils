@@ -16,7 +16,7 @@ stages:
     - ssh $DEPLOY_HOST "cd ~/${CI_PROJECT_NAME}_deploy/$rep/ && sudo docker compose pull && sudo docker compose up -d"
 
 grafana-deploy-job:
-#  extends: .generic-deploy-job
+  extends: .generic-deploy-job
   stage: deploy
   variables:
     rep: grafana
