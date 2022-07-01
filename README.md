@@ -8,26 +8,6 @@
 - [Application prometheus](https://prometheus-gr3.cefim-formation.org)
 - [Application loki](https://loki-gr3.cefim-formation.org)
 
-## **Cahier des charges**
-
-Objectif : Installer et configurer une suite d'outil exclusivement en [conteneur](#docker)  
-Travail d'équipe : Oui  
-Besoin :
-- Déployer un ou plusieurs serveurs accessibles par tous les membres du groupe (Prérequis : [Debian10](#serveur))
-- Installer et Configurer un proxy - [Traefik](#traefik)
-- Installer et Configurer un registry externe - [Harbor](#harbor)
-- Installer et Configurer un outil de test - [Sonarqube](#sonarqube)
-- Installer et Configurer un service de monitoring - [Grafana](#grafana)
-- Installer et Configurer un service de supervision - [Prometheus](#prometheus)
-- Installer et Configurer un service de loging - [Loki](#loki)
-
-Rendu :
-- Fournir une procédure d'installation des divers outils
-- Versionner votre code dans un projet GitLab nommé "Outils"
-- Préparer une présentation de votre projet (organisation, architecture, difficulté, résultat, point de vérification de fonctionnement)
-
-## **Réalisation**
-
 ## Présentation :
 Pour notre projet nous avons utilisé un serveur **Debian** installé sur une instance **AWS** sur lequel nous avons installé **Docker Compose** pour la contenerisarion. Puis nous avons installé **Traefik** comme reverse proxy et load balancer pour placer tous nos conteneurs derrière.
 
